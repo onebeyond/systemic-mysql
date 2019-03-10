@@ -1,0 +1,27 @@
+{
+  "name": "systemic-mysql",
+  "version": "1.0.0",
+  "description": "A systemic mysql component.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guidesmiths/systemic-mysql.git"
+  },
+  "keywords": [
+    "systemic",
+    "mysql",
+    "component"
+  ],
+  "author": "Guidesmiths Ltd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guidesmiths/systemic-mysql/issues"
+  },
+  "homepage": "https://github.com/guidesmiths/systemic-mysql#readme"
+}
