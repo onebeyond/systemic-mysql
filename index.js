@@ -1,67 +1,46 @@
+const {get} = require('lodash');
+
 module.exports = (options) => {
 
-  const mysql =  get(options, 'mysql')  || require("mysql")();
+  const mysql =  options['mysql']  || require('mysql2/promise');
   let config;
   let logger;
 
   // configure
 
-  const getConfig = (dependencies) => {
-    config = dependencies.config
-    logger = dependencies.logger || console
-  };
+  const initPool = async (config) => {
 
-  const initPool = (config) => {
-
-    const pool = mysql.createPool({
-      connectionLimit: 10,
-      host: config.host,
-      user: config.user,
-      password: config.password,
-      database: config.database
+    const pool = await mysql.createPool({
+      connectionLimit: config.ConnectionLimit || 10,
+      host: config.host || 'localhost',
+      user: config.user || 'admin',
+      password: config.password || 'password',
+      database: config.database || 'event_aggregates'
     });
 
-    pool.getConnection((err, connection) => {
-      if (err) {
-          if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-              console.error('Database connection was closed.')
-          };
-          if (err.code === 'ER_CON_COUNT_ERROR') {
-              console.error('Database has too many connections.')
-          };
-          if (err.code === 'ECONNREFUSED') {
-              console.error('Database connection was refused.')
-          };
-      };
-      if (connection) connection.release();
-      return;
-    })
     return pool;
-  }
+  };
 
-  const validate = (cb) => {
-    if (!has(config, 'vhosts')) return cb(new Error('config.vhosts is required'))
-    cb();
-  }
-  // start
+  const start = (dependencies, cb) => {
+    config = dependencies.config || {}
+    logger = dependencies.logger || console
 
-  const start = (cb) => {
     logger.info('Starting the pool');
-    return initPool();
-  }
+    return initPool(config);
+    cb();
+  };
 
   // stop
 
-  const stop = (cb) => {
+  const stop = (connectionPool, cb) => {
     if (connectionPool) {
-      return connectionPool.end()
-        .then(() => next());
+      return connectionPool.release();
     }
-    return next();
-  }
+    return cb();
+  };
 
   return {
-    start: async.seq(getConfig, validate, start),
+    start: start,
     stop
-  }
+  };
 }
