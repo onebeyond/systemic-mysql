@@ -5,6 +5,7 @@ module.exports = (options) => {
   const mysql =  options['mysql']  || require('mysql2/promise');
   let config;
   let logger;
+  let connection;
 
   // configure
 
@@ -21,26 +22,21 @@ module.exports = (options) => {
     return pool;
   };
 
-  const start = (dependencies, cb) => {
+  const start = async (dependencies) => {
     config = dependencies.config || {}
     logger = dependencies.logger || console
-
     logger.info('Starting the pool');
     return initPool(config);
-    cb();
   };
 
   // stop
 
-  const stop = (connectionPool, cb) => {
-    if (connectionPool) {
-      return connectionPool.release();
-    }
-    return cb();
+  const stop = async () => {
+
   };
 
   return {
-    start: start,
+    start,
     stop
   };
 }

@@ -17,17 +17,17 @@ describe('Mysql Component', () => {
       }
     };
     mysql = mysqlComponent(dependencies);
-    pool = await mysql.start((err, component)=> {
-       return component;
-    });
+    pool = await mysql.start(dependencies.config);
+    mysql.createConnec
   })
 
   after( async () => {
-    mysql.stop(connection)
+    await mysql.stop();
   })
 
   it('It should connect without error' , async () => {
-    connection = await pool.getConnection((err, connection) => connection.release());
+    connection = await pool.getConnection();
+    connection.release();
     expect(connection).to.not.be.null;
   });
 
