@@ -5,6 +5,7 @@ const mysqlComponent = require('..');
 describe('Mysql Component', () => {
   let pool;
   let connection;
+  let mysql;
 
   before( async () => {
     let dependencies = {
@@ -18,17 +19,15 @@ describe('Mysql Component', () => {
     };
     mysql = mysqlComponent(dependencies);
     pool = await mysql.start(dependencies.config);
-    mysql.createConnec
+    connection = pool.connection;
   })
 
   after( async () => {
     await mysql.stop();
   })
 
-  it('It should connect without error' , async () => {
-    connection = await pool.getConnection();
-    connection.release();
-    expect(connection).to.not.be.null;
+  it('It should connect without error' , () => {
+     expect(connection).to.not.be.null;
   });
 
 });
