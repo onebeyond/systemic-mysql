@@ -15,7 +15,7 @@ module.exports = (options) => {
       host: config.host || 'localhost',
       user: config.user || 'admin',
       password: config.password || 'password',
-      database: config.database || 'event_aggregates'
+      database: config.database || 'event_aggregates',
     });
 
     return pool;
@@ -42,6 +42,6 @@ module.exports = (options) => {
 
   return {
     start,
-    stop
+    stop,
   };
 }
