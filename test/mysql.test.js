@@ -14,11 +14,11 @@ describe('Mysql Component', () => {
         host: 'localhost',
         user: 'admin',
         password: 'password',
-        database: 'event_aggregates'
+        database: 'example'
       }
     };
     mysql = mysqlComponent(dependencies);
-    pool = await mysql.start(dependencies.config);
+    pool = await mysql.start(dependencies);
     connection = pool.connection;
   })
 
