@@ -4,7 +4,7 @@ A [systemic](https://github.com/guidesmiths/systemic) Mysql component
 ## Usage
 ```js
 const System = require('systemic')
-const postgres = require('systemic-mysql')
+const mysql = require('systemic-mysql')
 
 new System()
     .configure({
