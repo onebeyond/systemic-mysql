@@ -8,7 +8,7 @@ const postgres = require('systemic-mysql')
 
 new System()
     .configure({
-        postgres: {
+        mysql: {
           connectionLimit: config.ConnectionLimit,
           host: config.host,
           user: config.user,
@@ -17,7 +17,7 @@ new System()
         }
     })
     .add('logger', console)
-    .add('postgres', mysql()).dependsOn('config', 'logger')
+    .add('mysql', mysql()).dependsOn('config', 'logger')
     .start((err, components) => {
         // Do stuff with components.pg
     })
