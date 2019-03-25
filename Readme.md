@@ -23,7 +23,7 @@ new System()
     })
 ```
 
-## Ensure Dependecies
+## Ensure Dependencies
 
 In order to run the tests a mysql server is required. A fake docker server can be created easily with docker.
 
