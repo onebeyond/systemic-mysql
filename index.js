@@ -11,11 +11,11 @@ module.exports = (options) => {
   const initPool = async (config) => {
 
     pool = await mysql.createPool({
-      connectionLimit: config.ConnectionLimit || 10,
-      host: config.host || 'localhost',
-      user: config.user || 'admin',
-      password: config.password || 'password',
-      database: config.database || 'event_aggregates',
+      connectionLimit: config.ConnectionLimit,
+      host: config.host,
+      user: config.user,
+      password: config.password,
+      database: config.database,
     });
 
     return pool;
@@ -29,6 +29,7 @@ module.exports = (options) => {
   const start = async (dependencies) => {
     config = dependencies.config || {};
     logger = dependencies.logger || console;
+
     logger.info('Starting the pool');
     pool = await initPool(config);
     connection = await getConnection();
