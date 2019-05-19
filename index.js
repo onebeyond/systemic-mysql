@@ -1,6 +1,8 @@
+const get = require('lodash.get')
+
 module.exports = (options) => {
 
-  const mysql =  options['mysql']  || require('mysql2/promise');
+  const mysql =   get(options, 'msyql') || require('mysql2/promise');
   let config;
   let logger;
   let pool;
