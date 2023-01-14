@@ -19,7 +19,7 @@
     "component"
   ],
   "author": "Guidesmiths Ltd",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/guidesmiths/systemic-mysql/issues"
   },
